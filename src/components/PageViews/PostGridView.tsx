@@ -1,23 +1,31 @@
-import { Container, Col, Row, Button, Modal } from 'react-bootstrap';
+import { Container, Form, Col, Row, Button, Modal, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useState, useContext } from 'react';
 
-import { Post } from '../Context/PostListContext';
+import type { Post } from '../Context/PostListContext';
 import PostCard from '../Post/PostCard';
 import PostListContext from '../Context/PostListContext';
 import AddUpdate from '../Post/AddPost';
-import UpdatePostDetail from '../Post/UpdatePostDetail';
+import { CATEGORY_LABELS } from '../Context/PostType';
 
 function PostGridView() {
     const { postList } = useContext(PostListContext);
     const GRID_SIZE = 3;
 
-    const updateGrid = [];
-    for (let i = 0; i < postList.length; i+= GRID_SIZE) {
-        updateGrid.push(postList.slice(i, i + GRID_SIZE))
-    }
-
+    const [ buttonLabel, setButtonLabel ] = useState("Select Post Category");
     const [show, setShow] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
+    const [ filteredPostList, setFilteredPostList ] = useState([]);
+
+    const updateGrid = [];
+    for (let i = 0; i < filteredPostList.length; i+= GRID_SIZE) {
+        updateGrid.push(filteredPostList.slice(i, i + GRID_SIZE))
+    }
+
+    function handleChange(tagName: string) {
+        setButtonLabel(tagName);
+        const updatedList = filteredPostList.filter((post: Post) => post.postCategory == tagName)
+        setFilteredPostList(updatedList);
+    }
 
     function handleShow() {
         setFullscreen(true);
@@ -28,10 +36,19 @@ function PostGridView() {
         <>
             <Container style={{textAlign: "center",}}>
                 <h2 style={{margin: "30px 0px 10px 0px", textTransform: "uppercase", textAlign: "center", color: "#35D7F6", fontWeight: "800"}}>PROJECT UPDATE LIST</h2>
-                <Button variant="primary" id="addItem" size="lg" onClick={handleShow} style={{margin: "5px 0px"}}>
-                    Add New Project Update
-                </Button>              
-                {updateGrid.map((rowItems: Post[], rowIndex: number) => (
+                <div className='d-flex justify-content-center'>
+                    <Button variant="primary" id="addItem" size="lg" onClick={handleShow} style={{marginRight: "20px"}}>
+                        Add New Project Update
+                    </Button>
+                    <Form.Group className='my-2' controlId=''>
+                        <DropdownButton id="dropdown-basic-button" title={buttonLabel} onSelect={handleChange}>
+                            {Object.entries(CATEGORY_LABELS).map(([key, value]) => (
+                                <Dropdown.Item key={key} href="#" eventKey={value}>{value}</Dropdown.Item>
+                            ))}
+                        </DropdownButton>
+                    </Form.Group>
+                </div>
+                {filteredPostList.map((rowItems: Post[], rowIndex: number) => (
                     <Row key={rowIndex} style={{margin: "20px 0px"}}>
                         {rowItems.map((post: Post, itemIndex: number) => (
                             <Col md={4}>

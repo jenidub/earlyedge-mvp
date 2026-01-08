@@ -16,6 +16,7 @@ function AddUpdate() {
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [ buttonLabel, setButtonLabel ] = useState("Select Post Category");
 
     const validateData = (formData: NewPostForm): Record<string, string> => {
         const errors: Record <string, string> = {};
@@ -49,7 +50,8 @@ function AddUpdate() {
         }
     }
 
-    const handleSelect = ( eventKey: string | null ) => {
+    const handleSelect = ( eventKey: string ) => {
+        setButtonLabel(eventKey);
         if( eventKey ) {
             setFormData(prev => ({...prev, postCategory: eventKey}))
         }
@@ -90,7 +92,7 @@ function AddUpdate() {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className='my-2' controlId=''>
-                        <DropdownButton id="dropdown-basic-button" title="Select a Post Category" onSelect={handleSelect}>
+                        <DropdownButton id="dropdown-basic-button" title={buttonLabel} onSelect={handleSelect}>
                             {Object.entries(CATEGORY_LABELS).map(([key, value]) => (
                                 <Dropdown.Item key={key} href="#" eventKey={value}>{value}</Dropdown.Item>
                             ))}
