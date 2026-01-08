@@ -1,5 +1,5 @@
 
-# JeniDub Task Manager
+# JeniDub Project Update Manager
 
 A project management dashboard for tracking team updates across different departments in a startup environment.
 
@@ -51,7 +51,7 @@ A project management dashboard for tracking team updates across different depart
     
 6.  **Login**
     
-    Click the "Log In" button on the landing page to authenticate via Auth0 and access the dashboard.
+    Click the "Log In" button on the landing page to authenticate via Auth0 and access the dashboard. The options include email/password, GitHub and Google single sign ons.
     
 
 ----------
