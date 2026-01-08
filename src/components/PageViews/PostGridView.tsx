@@ -14,16 +14,26 @@ function PostGridView() {
     const [ buttonLabel, setButtonLabel ] = useState("Select Post Category");
     const [show, setShow] = useState(false);
     const [fullscreen, setFullscreen] = useState(true);
-    const [ filteredPostList, setFilteredPostList ] = useState([]);
+    const [ filteredPostList, setFilteredPostList ] = useState<Post[]>([]);
 
     const updateGrid = [];
+    // for (let i = 0; i < postList.length; i+= GRID_SIZE) {
+    //     updateGrid.push(postList.slice(i, i + GRID_SIZE))
+    // }
+
     for (let i = 0; i < filteredPostList.length; i+= GRID_SIZE) {
         updateGrid.push(filteredPostList.slice(i, i + GRID_SIZE))
     }
 
     function handleChange(tagName: string) {
+        let updatedList: Post[];
         setButtonLabel(tagName);
-        const updatedList = filteredPostList.filter((post: Post) => post.postCategory == tagName)
+
+        if (tagName == "All") {
+            updatedList = postList;
+        } else {
+            updatedList = postList.filter((post: Post) => post.postCategory == tagName)
+        }
         setFilteredPostList(updatedList);
     }
 
@@ -48,7 +58,7 @@ function PostGridView() {
                         </DropdownButton>
                     </Form.Group>
                 </div>
-                {filteredPostList.map((rowItems: Post[], rowIndex: number) => (
+                {updateGrid.map((rowItems: Post[], rowIndex: number) => (
                     <Row key={rowIndex} style={{margin: "20px 0px"}}>
                         {rowItems.map((post: Post, itemIndex: number) => (
                             <Col md={4}>

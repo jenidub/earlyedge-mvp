@@ -6,7 +6,7 @@ export interface NewPostForm {
 }
 
 export const CATEGORY_LABELS = {
-    NONE: "None",
+    ALL: "All",
     PRODUCT: "Product", 
     MARKETING: "Marketing", 
     SALES: "Sales", 

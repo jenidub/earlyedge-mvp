@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -12,14 +12,16 @@ import PostListContext from "./components/Context/PostListContext.tsx";
 
 function App() {
     const { isLoading } = useAuth0();
+    const { postList, setPostList } = useContext(PostListContext); //for demo MVP
 
-    const [ postList, setPostList ] = useState(() => {
-        const savedPosts = localStorage.getItem('postList');
-        if (savedPosts && savedPosts !== "undefined" && savedPosts !== "null") {
-            return JSON.parse(savedPosts)
-        }
-        return [];
-    });
+    // NEW FEATURE: LocalStorage for Posts to last across browser sessions
+    // const [ postListLocal, setPostListLocal ] = useState(() => {
+    //     const savedPosts = localStorage.getItem('postList');
+    //     if (savedPosts && savedPosts !== "undefined" && savedPosts !== "null") {
+    //         return JSON.parse(savedPosts)
+    //     }
+    //     return [];
+    // });
 
     useEffect(() => {
         localStorage.setItem('postList', JSON.stringify(postList));

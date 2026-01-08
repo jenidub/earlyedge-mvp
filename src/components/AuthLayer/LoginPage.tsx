@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
         >
             <Container>
                 <Row>
-                    <h1 style={{border: "3px solid black", textAlign: "center", color: "white", margin: "20px 0px", padding: "50px",}}>The JeniDub Project Manager App</h1>
+                    <h1 style={{border: "3px solid black", textAlign: "center", color: "white", margin: "20px 0px", padding: "50px",}}>EarlyEdge Project Manager App</h1>
                     <LoginButton />
                     <LogoutButton />
                 </Row>

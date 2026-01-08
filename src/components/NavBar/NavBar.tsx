@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
                         style={{margin: "0px 20px 0px 0px"}}
                         className="d-inline-block align-top"
                     />
-                    JeniDub Task Manager
+                    EarlyEdge Project Update Manager
                 </Navbar.Brand>
                 <Nav>
                     {isAuthenticated &&
