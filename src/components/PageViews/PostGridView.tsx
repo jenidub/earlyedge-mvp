@@ -1,18 +1,19 @@
 import { Container, Col, Row, Button, Modal } from 'react-bootstrap';
 import { useState, useContext } from 'react';
 
-import { Update } from '../Context/UpdateContext';
-import UpdateCard from '../Update/UpdateCard';
-import UpdateListContext from '../Context/UpdateContext';
-import AddUpdate from '../Update/AddUpdate';
+import { Post } from '../Context/PostListContext';
+import PostCard from '../Post/PostCard';
+import PostListContext from '../Context/PostListContext';
+import AddUpdate from '../Post/AddPost';
+import UpdatePostDetail from '../Post/UpdatePostDetail';
 
-function UpdateGridView() {
-    const { updateList } = useContext(UpdateListContext);
+function PostGridView() {
+    const { postList } = useContext(PostListContext);
     const GRID_SIZE = 3;
 
     const updateGrid = [];
-    for (let i = 0; i < updateList.length; i+= GRID_SIZE) {
-        updateGrid.push(updateList.slice(i, i + GRID_SIZE))
+    for (let i = 0; i < postList.length; i+= GRID_SIZE) {
+        updateGrid.push(postList.slice(i, i + GRID_SIZE))
     }
 
     const [show, setShow] = useState(false);
@@ -26,20 +27,20 @@ function UpdateGridView() {
     return (
         <>
             <Container style={{textAlign: "center",}}>
-                <h2 style={{margin: "30px 0px 10px 0px", textTransform: "uppercase", textAlign: "center", color: "#35D7F6", fontWeight: "800"}}>UPDATE LIST</h2>
+                <h2 style={{margin: "30px 0px 10px 0px", textTransform: "uppercase", textAlign: "center", color: "#35D7F6", fontWeight: "800"}}>PROJECT UPDATE LIST</h2>
                 <Button variant="primary" id="addItem" size="lg" onClick={handleShow} style={{margin: "5px 0px"}}>
-                    Add New Task
+                    Add New Project Update
                 </Button>              
-                {updateGrid.map((rowItems: Update[], rowIndex: number) => (
+                {updateGrid.map((rowItems: Post[], rowIndex: number) => (
                     <Row key={rowIndex} style={{margin: "20px 0px"}}>
-                        {rowItems.map((update: Update, itemIndex: number) => (
+                        {rowItems.map((post: Post, itemIndex: number) => (
                             <Col md={4}>
-                                <UpdateCard 
+                                <PostCard 
                                     key={itemIndex}
-                                    updateTitle={update.updateTitle}
-                                    updateDueDate={update.updateDueDate}
-                                    updateDescription={update.updateDescription}
-                                    isUpdateCompleted={update.isUpdateCompleted} 
+                                    postTitle={post.postTitle}
+                                    postDescription={post.postDescription}
+                                    postCategory={post.postCategory}
+                                    postLink={post.postLink}
                                 />
                             </Col>
 
@@ -57,4 +58,4 @@ function UpdateGridView() {
     )
 }
 
-export default UpdateGridView;
+export default PostGridView;

@@ -8,35 +8,34 @@ import CallbackPage from "./components/AuthLayer/CallbackPage.tsx";
 import PostDashboard from "./components/Dashboard/PostDashboard.tsx";
 import ProfilePage from "./components/PageViews/ProfilePage.tsx";
 import AuthenticationGuard from "./components/AuthLayer/AuthenticationGuard.tsx";
-import UpdateListContext from "./components/Context/UpdateContext.tsx";
+import PostListContext from "./components/Context/PostListContext.tsx";
 
 function App() {
     const { isLoading } = useAuth0();
 
-    const [ updateList, setUpdateList ] = useState(() => {
-        const savedUpdates = localStorage.getItem('updateList');
-        // console.log(savedUpdates);
-        if (savedUpdates && savedUpdates !== "undefined" && savedUpdates !== "null") {
-            return JSON.parse(savedUpdates)
+    const [ postList, setPostList ] = useState(() => {
+        const savedPosts = localStorage.getItem('postList');
+        if (savedPosts && savedPosts !== "undefined" && savedPosts !== "null") {
+            return JSON.parse(savedPosts)
         }
         return [];
     });
 
     useEffect(() => {
-        localStorage.setItem('updateList', JSON.stringify(updateList));
-    }, [updateList]);
+        localStorage.setItem('postList', JSON.stringify(postList));
+    }, [postList]);
 
     if (isLoading) return (<div>Loading...</div>)
 
     return (
-        <UpdateListContext.Provider value={{ updateList, setUpdateList }}>
+        <PostListContext.Provider value={{ postList, setPostList }}>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/dashboard" element={<AuthenticationGuard component={PostDashboard} />} />
                 <Route path="/profile" element={<AuthenticationGuard component={ProfilePage} />} />
                 <Route path="/callback" element={<CallbackPage />} />
             </Routes>
-        </UpdateListContext.Provider>
+        </PostListContext.Provider>
     )
 }
 
