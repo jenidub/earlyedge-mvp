@@ -5,7 +5,7 @@ import { NewPostForm } from '../Context/PostType';
 import { Form, Button, Dropdown, DropdownButton } from "react-bootstrap";
 import { CATEGORY_LABELS } from '../Context/PostType';
 
-function AddUpdate() {
+function AddPost() {
     const { postList, setPostList } = useContext(PostListContext);
 
     const [ formData, setFormData ] = useState<NewPostForm>({
@@ -13,6 +13,7 @@ function AddUpdate() {
         postDescription: "",
         postLink: "",
         postCategory: "None",
+        postDate: new Date(Date.now()).toLocaleDateString(),
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -44,6 +45,7 @@ function AddUpdate() {
                 postDescription: "",
                 postLink: "",
                 postCategory: "None",
+                postDate: new Date(Date.now()).toLocaleDateString(),
             });
         } else {
             setErrors(validationErrors);
@@ -116,4 +118,4 @@ function AddUpdate() {
     )
 }
 
-export default AddUpdate;
+export default AddPost;

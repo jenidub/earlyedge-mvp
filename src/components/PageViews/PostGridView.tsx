@@ -4,23 +4,19 @@ import { useState, useContext } from 'react';
 import type { Post } from '../Context/PostListContext';
 import PostCard from '../Post/PostCard';
 import PostListContext from '../Context/PostListContext';
-import AddUpdate from '../Post/AddPost';
+import AddPost from '../Post/AddPost';
 import { CATEGORY_LABELS } from '../Context/PostType';
 
 function PostGridView() {
     const { postList } = useContext(PostListContext);
     const GRID_SIZE = 3;
 
-    const [ buttonLabel, setButtonLabel ] = useState("Select Post Category");
+    const [ buttonLabel, setButtonLabel ] = useState("All");
     const [show, setShow] = useState(false);
-    const [fullscreen, setFullscreen] = useState(true);
-    const [ filteredPostList, setFilteredPostList ] = useState<Post[]>([]);
+    const [ fullscreen, setFullscreen ] = useState(true);
+    const [ filteredPostList, setFilteredPostList ] = useState<Post[]>(postList);
 
     const updateGrid = [];
-    // for (let i = 0; i < postList.length; i+= GRID_SIZE) {
-    //     updateGrid.push(postList.slice(i, i + GRID_SIZE))
-    // }
-
     for (let i = 0; i < filteredPostList.length; i+= GRID_SIZE) {
         updateGrid.push(filteredPostList.slice(i, i + GRID_SIZE))
     }
@@ -66,6 +62,7 @@ function PostGridView() {
                                     key={itemIndex}
                                     postTitle={post.postTitle}
                                     postDescription={post.postDescription}
+                                    postDate={post.postDate}
                                     postCategory={post.postCategory}
                                     postLink={post.postLink}
                                 />
@@ -78,7 +75,7 @@ function PostGridView() {
 
             <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
                 <Modal.Body>
-                    <AddUpdate />
+                    <AddPost />
                 </Modal.Body>
             </Modal>
         </>

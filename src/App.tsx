@@ -14,7 +14,7 @@ function App() {
     const { isLoading } = useAuth0();
     const { postList, setPostList } = useContext(PostListContext); //for demo MVP
 
-    // NEW FEATURE: LocalStorage for Posts to last across browser sessions
+    // NEW FEATURE for MVP v2: LocalStorage for Posts to last across browser sessions
     // const [ postListLocal, setPostListLocal ] = useState(() => {
     //     const savedPosts = localStorage.getItem('postList');
     //     if (savedPosts && savedPosts !== "undefined" && savedPosts !== "null") {

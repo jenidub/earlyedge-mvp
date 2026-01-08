@@ -1,14 +1,13 @@
 import { useContext, useState } from 'react';
 import { Card, Modal, Badge } from "react-bootstrap";
 
-import UpdateDetail from './UpdatePostDetail';
 import PostListContext from '../Context/PostListContext';
 import UpdatePostDetail from './UpdatePostDetail';
 
 function PostCard(props: any) {
     const { postList, setPostList } = useContext(PostListContext);
 
-    const { postTitle, postDescription, postCategory, postLink } = props;
+    const { postTitle, postDescription, postDate, postCategory, postLink } = props;
     const [ show, setShow ] = useState(false);
 
     function handleShow() {
@@ -32,6 +31,7 @@ function PostCard(props: any) {
                     </h6>
                     <h3>{postTitle}</h3>
                     <p>{postDescription}</p>
+                    <p>{postDate}</p>
                     <p><a href={postLink ? postLink : "/#"} target="_blank">Click Here to View Link</a></p>
                     <p><a onClick={handleShow}>Click Here to View/Edit Post</a></p>
                     <p><a onClick={handleDelete}>Click Here to Delete Post</a></p>

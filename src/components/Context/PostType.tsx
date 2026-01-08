@@ -3,6 +3,7 @@ export interface NewPostForm {
     postDescription: string;
     postCategory: string,
     postLink?: string;
+    postDate: string;
 }
 
 export const CATEGORY_LABELS = {
